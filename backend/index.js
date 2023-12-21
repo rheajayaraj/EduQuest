@@ -7,6 +7,8 @@ const userroutes = require("./routes/user/routes");
 const categoriesroutes = require("./routes/categories/routes");
 const subscriptionsroutes = require("./routes/subscriptions/routes");
 const coursesroutes = require("./routes/courses/routes");
+const adminroutes = require("./routes/admin/routes");
+const legalroutes = require("./routes/legal/routes");
 
 mongoose.connect(mongoString);
 const database = mongoose.connection;
@@ -30,3 +32,5 @@ app.use("/api", userroutes);
 app.use("/api", categoriesroutes);
 app.use("/api", subscriptionsroutes);
 app.use("/api", coursesroutes);
+app.use("/api", adminroutes);
+app.use("/api", legalroutes);

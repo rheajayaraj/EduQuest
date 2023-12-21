@@ -1,11 +1,14 @@
 const mongoose = require("mongoose");
 
 const coursecontentSchema = new mongoose.Schema({
+  course_id: {
+    type: String,
+  },
   short_description: {
     type: String,
   },
   long_description: {
-    type: Number,
+    type: String,
   },
   video_path: {
     type: String,
@@ -15,4 +18,8 @@ const coursecontentSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Course_content", coursecontentSchema);
+module.exports = mongoose.model(
+  "course_content",
+  coursecontentSchema,
+  "course_content"
+);
