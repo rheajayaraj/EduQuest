@@ -1,0 +1,128 @@
+[
+  {
+    "course_id": "6583ca57625534979f40e2aa",
+    "short_description": "Learn React basics",
+    "long_description": "This course covers the fundamentals of React.",
+    "video_path": "/videos/react_basics.mp4",
+    "thumbnail_path": "/thumbnails/react_basics.png"
+  },
+  {
+    "course_id": "6583ca57625534979f40e2ab",
+    "short_description": "Python programming introduction",
+    "long_description": "A beginner-friendly Python course.",
+    "video_path": "/videos/python_intro.mp4",
+    "thumbnail_path": "/thumbnails/python_intro.png"
+  },
+  {
+    "course_id": "6583ca57625534979f40e2ac",
+    "short_description": "Mastering Java",
+    "long_description": "A comprehensive Java programming course.",
+    "video_path": "/videos/java_masterclass.mp4",
+    "thumbnail_path": "/thumbnails/java_masterclass.png"
+  },
+  {
+    "course_id": "6583ca57625534979f40e2ad",
+    "short_description": "Learn C programming basics",
+    "long_description": "This course provides an introduction to C programming.",
+    "video_path": "/videos/c_basics.mp4",
+    "thumbnail_path": "/thumbnails/c_basics.png"
+  },
+  {
+    "course_id": "6583ca57625534979f40e2ae",
+    "short_description": "Advanced C++ techniques",
+    "long_description": "Explore advanced techniques in C++ programming.",
+    "video_path": "/videos/cpp_advanced.mp4",
+    "thumbnail_path": "/thumbnails/cpp_advanced.png"
+  },
+  {
+    "course_id": "6583ca57625534979f40e2af",
+    "short_description": "In-depth C# programming",
+    "long_description": "Comprehensive coverage of C# programming concepts.",
+    "video_path": "/videos/csharp_in_depth.mp4",
+    "thumbnail_path": "/thumbnails/csharp_in_depth.png"
+  },
+  {
+    "course_id": "6583ca57625534979f40e2b0",
+    "short_description": "Guide to Flutter Development",
+    "long_description": "Developing applications using Flutter framework.",
+    "video_path": "/videos/flutter_guide.mp4",
+    "thumbnail_path": "/thumbnails/flutter_guide.png"
+  },
+  {
+    "course_id": "6583ca57625534979f40e2b1",
+    "short_description": "Essentials of Node.js",
+    "long_description": "Fundamental concepts of Node.js for backend development.",
+    "video_path": "/videos/nodejs_essentials.mp4",
+    "thumbnail_path": "/thumbnails/nodejs_essentials.png"
+  },
+  {
+    "course_id": "6583ca57625534979f40e2b2",
+    "short_description": "React Native for Mobile Apps",
+    "long_description": "Developing mobile applications using React Native.",
+    "video_path": "/videos/react_native_mobile.mp4",
+    "thumbnail_path": "/thumbnails/react_native_mobile.png"
+  },
+  {
+    "course_id": "6583ca57625534979f40e2b3",
+    "short_description": "Exploring advanced React concepts",
+    "long_description": "In-depth exploration of advanced topics in React.",
+    "video_path": "/videos/advanced_react.mp4",
+    "thumbnail_path": "/thumbnails/advanced_react.png"
+  },
+  {
+    "course_id": "6583ca57625534979f40e2b4",
+    "short_description": "Python data analysis techniques",
+    "long_description": "Analyzing data using Python programming.",
+    "video_path": "/videos/python_data_analysis.mp4",
+    "thumbnail_path": "/thumbnails/python_data_analysis.png"
+  },
+  {
+    "course_id": "6583ca57625534979f40e2b5",
+    "short_description": "Java Spring Framework essentials",
+    "long_description": "Essential concepts and features of Java Spring Framework.",
+    "video_path": "/videos/java_spring_essentials.mp4",
+    "thumbnail_path": "/thumbnails/java_spring_essentials.png"
+  },
+  {
+    "course_id": "6583ca57625534979f40e2b6",
+    "short_description": "Advanced C Concepts",
+    "long_description": "Exploring advanced concepts in C programming.",
+    "video_path": "/videos/advanced_c_concepts.mp4",
+    "thumbnail_path": "/thumbnails/advanced_c_concepts.png"
+  },
+  {
+    "course_id": "6583ca57625534979f40e2b7",
+    "short_description": "Developing games in C++",
+    "long_description": "Learning game development using C++.",
+    "video_path": "/videos/cpp_game_dev.mp4",
+    "thumbnail_path": "/thumbnails/cpp_game_dev.png"
+  },
+  {
+    "course_id": "6583ca57625534979f40e2b8",
+    "short_description": "ASP.NET Core in C#",
+    "long_description": "Building web applications with ASP.NET Core using C#.",
+    "video_path": "/videos/csharp_asp_net_core.mp4",
+    "thumbnail_path": "/thumbnails/csharp_asp_net_core.png"
+  },
+  {
+    "course_id": "6583ca57625534979f40e2b9",
+    "short_description": "UI Design in Flutter",
+    "long_description": "Designing user interfaces using Flutter framework.",
+    "video_path": "/videos/flutter_ui_design.mp4",
+    "thumbnail_path": "/thumbnails/flutter_ui_design.png"
+  },
+  {
+    "course_id": "6583ca57625534979f40e2ba",
+    "short_description": "Express Framework in Node.js",
+    "long_description": "Understanding Express framework for Node.js.",
+    "video_path": "/videos/nodejs_express.mp4",
+    "thumbnail_path": "/thumbnails/nodejs_express.png"
+  },
+  {
+    "course_id": "6583ca57625534979f40e2bb",
+    "short_description": "React Native Advanced Topics",
+    "long_description": "Advanced concepts in React Native.",
+    "video_path": "/videos/react_native_advanced.mp4",
+    "thumbnail_path": "/thumbnails/react_native_advanced.png"
+  }
+]
