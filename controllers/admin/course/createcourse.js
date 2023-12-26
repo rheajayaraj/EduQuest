@@ -1,5 +1,6 @@
 const Course = require("../../../models/courses");
 const Category = require("../../../models/categories");
+const mongoose = require("mongoose");
 
 module.exports = async (req, res) => {
   try {
@@ -8,11 +9,11 @@ module.exports = async (req, res) => {
       name: req.body.name,
       duration: req.body.duration,
       educator: req.body.educator,
-      category_id: category.id,
+      category_id: new mongoose.Types.ObjectId(category.id),
     });
     const dataToSave = await data.save();
-    res.status(200).json(dataToSave);
+    return res.status(200).json(dataToSave);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    return res.status(400).json({ error: error.message });
   }
 };

@@ -1,17 +1,12 @@
-const User = require("../../models/user");
-const decrypt = require("../../middleware/saltdecrypt");
-const verify = require("../../middleware/jwtverify");
+const userverify = require("../../middleware/userverification");
 // const uploadBase64Image = require("../../middleware/uploadimg");
 // const deleteFromS3 = require("../../middleware/deleteFromS3");
 
 module.exports = async (req, res) => {
   try {
-    const decryptedData = await decrypt(req.headers.authorization);
-    const decoded = await verify(decryptedData);
-    const user = await User.findById(decoded.id);
-
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
+    const user = await userverify(req.headers.authorization);
+    if (typeof user === "string") {
+      return res.status(404).json({ message: user });
     }
     // if (req.body.image) {
     //   const imageUrl = await uploadBase64Image(req.body.image);
@@ -27,9 +22,9 @@ module.exports = async (req, res) => {
     user.state = req.body.state || user.state;
     user.country = req.body.country || user.country;
     const updatedUser = await user.save();
-    res.status(200).json(updatedUser);
+    return res.status(200).json(updatedUser);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };

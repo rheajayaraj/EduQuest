@@ -64,8 +64,8 @@ router.delete("/admin/deletecourseuser/:id", deletecourseuser);
 router.get("/admin/listcourseuser", listcourseuser);
 
 //plan-user
-const deleteplanuser = require("../../controllers/admin/usersubscription/deleteusercourse");
-const listplanuser = require("../../controllers/admin/usersubscription/listusercourse");
+const deleteplanuser = require("../../controllers/admin/usersubscription/deleteuserplan");
+const listplanuser = require("../../controllers/admin/usersubscription/listuserplan");
 
 router.delete("/admin/deleteplanuser/:id", deleteplanuser);
 router.get("/admin/listplanuser", listplanuser);

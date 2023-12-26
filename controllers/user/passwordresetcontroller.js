@@ -6,7 +6,6 @@ module.exports = async (req, res) => {
   try {
     const decryptedData = await decrypt(req.body.encrypt);
     const data = JSON.parse(decryptedData);
-    console.log("Decrypted JSON:", data);
     const currentTimestamp = new Date().getTime();
     const otpTimestamp = new Date(data.timestamp).getTime();
     const oneHour = 60 * 60 * 1000;
@@ -25,7 +24,6 @@ module.exports = async (req, res) => {
       return res.status(400).json({ error: "Invalid OTP or expired." });
     }
   } catch (error) {
-    console.error("Error:", error);
     return res.status(500).json({ error: error.message });
   }
 };

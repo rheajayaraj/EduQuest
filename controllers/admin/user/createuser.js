@@ -14,8 +14,8 @@ module.exports = async (req, res) => {
       country: req.body.country,
     });
     const dataToSave = await data.save();
-    res.status(200).json(dataToSave);
+    return res.status(200).json(dataToSave);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    return res.status(400).json({ error: error.message });
   }
 };

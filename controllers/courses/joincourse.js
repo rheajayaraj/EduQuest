@@ -1,31 +1,33 @@
 const Course = require("../../models/coursesjoined");
-const User = require("../../models/user");
-const decrypt = require("../../middleware/saltdecrypt");
-const verify = require("../../middleware/jwtverify");
+const mongoose = require("mongoose");
+const Courses = require("../../models/courses");
+const userverify = require("../../middleware/userverification");
 
 module.exports = async (req, res) => {
   try {
-    decryptedData = await decrypt(req.headers.authorization);
-    const decoded = await verify(decryptedData);
-    const user = await User.findById(decoded.id);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
+    const user = await userverify(req.headers.authorization);
+    if (typeof user === "string") {
+      return res.status(404).json({ message: user });
+    }
+    const courses = await Courses.findById(req.params.courseid);
+    if (!courses) {
+      return res.status(404).json({ message: "Course not found" });
     }
     const course = await Course.findOne({
-      course_id: req.params.courseid,
-      user_id: decoded.id,
+      course_id: new mongoose.Types.ObjectId(req.params.courseid),
+      user_id: new mongoose.Types.ObjectId(user.id),
     });
     if (course) {
       return res.status(400).json({ message: "Course already subscribed" });
     }
     const data = {
-      user_id: user.id,
-      course_id: req.params.courseid,
+      user_id: new mongoose.Types.ObjectId(user.id),
+      course_id: new mongoose.Types.ObjectId(req.params.courseid),
     };
     const newCourse = new Course(data);
     const savedCourse = await newCourse.save();
-    res.status(200).json(savedCourse);
+    return res.status(200).json(savedCourse);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 };

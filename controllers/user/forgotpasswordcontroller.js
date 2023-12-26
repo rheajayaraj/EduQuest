@@ -27,13 +27,12 @@ module.exports = async (req, res) => {
       text: `OTP: ${code}`,
     };
     await SENDMAIL(emailOptions);
-    res.json({
+    return res.json({
       success: "Password reset link sent to your email account",
       otp: code,
       encrypt: encryptedData,
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 };

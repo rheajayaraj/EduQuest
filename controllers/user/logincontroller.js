@@ -15,13 +15,12 @@ module.exports = async function (req, res) {
     }
     let token = await create({ id: user.id, email: user.email });
     let encryptedData = await encrypt(token);
-    res.json({
+    return res.json({
       message: "Authentication successful",
       user: user,
       JWT_token: encryptedData,
     });
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 };

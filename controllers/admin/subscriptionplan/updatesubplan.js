@@ -9,11 +9,13 @@ module.exports = async (req, res) => {
     plan.name = req.body.name || plan.name;
     plan.price = req.body.price || plan.price;
     plan.time_period = req.body.time_period || plan.time_period;
-    plan.is_active = req.body.is_active || plan.is_active;
+    plan.is_active = req.body.hasOwnProperty("is_active")
+      ? req.body.is_active
+      : plan.is_active;
     const updatedPlan = await plan.save();
-    res.status(200).json(updatedPlan);
+    return res.status(200).json(updatedPlan);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };

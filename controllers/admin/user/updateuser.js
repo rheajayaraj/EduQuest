@@ -28,9 +28,9 @@ module.exports = async (req, res) => {
     user.state = req.body.state || user.state;
     user.country = req.body.country || user.country;
     const updatedUser = await user.save();
-    res.status(200).json(updatedUser);
+    return res.status(200).json(updatedUser);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };

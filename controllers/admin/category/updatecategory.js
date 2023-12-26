@@ -8,9 +8,9 @@ module.exports = async (req, res) => {
     }
     category.name = req.body.name || category.name;
     const updatedCategory = await category.save();
-    res.status(200).json(updatedCategory);
+    return res.status(200).json(updatedCategory);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };

@@ -4,11 +4,11 @@ module.exports = async (req, res) => {
   try {
     const deletedCategory = await Category.findByIdAndDelete(req.params.id);
     if (deletedCategory) {
-      res.status(200).json({ message: "Category deleted successfully" });
+      return res.status(200).json({ message: "Category deleted successfully" });
     } else {
-      res.status(404).json({ message: "Category not found" });
+      return res.status(404).json({ message: "Category not found" });
     }
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };

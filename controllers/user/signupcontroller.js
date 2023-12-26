@@ -17,11 +17,10 @@ module.exports = async (req, res) => {
     const dataToSave = await data.save();
     let token = await create({ id: dataToSave.id, email: dataToSave.email });
     let encryptedData = await encrypt(token);
-    res.json({
+    return res.status(200).json({
       message: "Authentication successful",
       user: dataToSave,
       JWT_token: encryptedData,
     });
-    res.status(200).json(dataToSave);
   }
 };

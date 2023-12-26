@@ -12,9 +12,9 @@ const verifytoken = require("../../controllers/user/verifytoken");
 router.post("/signup", signup);
 router.post("/login", login);
 router.post("/forgotpassword", forgotpassword);
-router.post("/reset", passwordreset);
+router.post("/passwordreset", passwordreset);
 router.get("/user", userdetails);
-router.patch("/userupdate", userupdate);
+router.patch("/updateuser", userupdate);
 router.delete("/deleteuser", deleteuser);
 router.post("/verifytoken", verifytoken);
 

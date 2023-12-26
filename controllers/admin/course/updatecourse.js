@@ -1,5 +1,6 @@
 const Course = require("../../../models/courses");
 const Category = require("../../../models/categories");
+const mongoose = require("mongoose");
 
 module.exports = async (req, res) => {
   try {
@@ -7,15 +8,21 @@ module.exports = async (req, res) => {
     if (!course) {
       return res.status(404).json({ message: "Course not found" });
     }
-    const category = await Category.findOne({ name: req.body.category });
+    if (req.body.category) {
+      const category = await Category.findOne({ name: req.body.category });
+      if (category) {
+        course.category_id = new mongoose.Types.ObjectId(category.id);
+      } else {
+        return res.status(404).json({ message: "Category not found" });
+      }
+    }
     course.name = req.body.name || course.name;
     course.duration = req.body.duration || course.duration;
     course.educator = req.body.educator || course.educator;
-    course.category_id = category.id || course.category_id;
     const updatedCourse = await course.save();
-    res.status(200).json(updatedCourse);
+    return res.status(200).json(updatedCourse);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };

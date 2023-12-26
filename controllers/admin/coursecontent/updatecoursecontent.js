@@ -13,9 +13,9 @@ module.exports = async (req, res) => {
     course.video_path = req.body.video_path || course.video_path;
     course.thumbnail_path = req.body.thumbnail_path || course.thumbnail_path;
     const updatedCourse = await course.save();
-    res.status(200).json(updatedCourse);
+    return res.status(200).json(updatedCourse);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
