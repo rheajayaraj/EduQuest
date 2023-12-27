@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EduQuest</title>
+    <%- include('partials/headerlinks.ejs') %>
+  </head>
+
+  <body>
+    <!--  Body Wrapper -->
+    <div
+      class="page-wrapper"
+      id="main-wrapper"
+      data-layout="vertical"
+      data-navbarbg="skin6"
+      data-sidebartype="full"
+      data-sidebar-position="fixed"
+      data-header-position="fixed"
+    >
+      <%- include('partials/sidebar.ejs') %>
+      <!--  Main wrapper -->
+      <div class="body-wrapper">
+        <%- include('partials/navbar.ejs') %>
+        <div class="container-fluid">
+          <h2>Edit user</h2>
+          <div class="row" id="userCardsContainer">
+            <div class="card">
+              <div class="card-body">
+                <form id="categoryForm">
+                  <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    <input class="form-control" id="nameInput" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Contact</label>
+                    <input class="form-control" id="contactInput" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input class="form-control" id="emailInput" type="email" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input class="form-control" id="passwordInput" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Gender</label>
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="genderInput"
+                        id="genderMale"
+                        value="Male"
+                      />
+                      <label class="form-check-label"> Male </label>
+                    </div>
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="genderInput"
+                        id="genderFemale"
+                        value="Female"
+                      />
+                      <label class="form-check-label"> Female </label>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">State</label>
+                    <select class="form-select" id="stateInput"></select>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Country</label>
+                    <input
+                      class="form-control"
+                      id="countryInput"
+                      default="India"
+                    />
+                  </div>
+                  <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%- include('partials/footerscripts.ejs') %>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const states = [
+          "Andhra Pradesh",
+          "Arunachal Pradesh",
+          "Assam",
+          "Bihar",
+          "Chhattisgarh",
+          "Goa",
+          "Gujarat",
+          "Haryana",
+          "Himachal Pradesh",
+          "Jharkhand",
+          "Karnataka",
+          "Kerala",
+          "Madhya Pradesh",
+          "Maharashtra",
+          "Manipur",
+          "Meghalaya",
+          "Mizoram",
+          "Nagaland",
+          "Odisha",
+          "Punjab",
+          "Rajasthan",
+          "Sikkim",
+          "Tamil Nadu",
+          "Telangana",
+          "Tripura",
+          "Uttar Pradesh",
+          "Uttarakhand",
+          "West Bengal",
+        ];
+        const stateInput = document.getElementById("stateInput");
+        states.forEach((state) => {
+          const option = document.createElement("option");
+          option.value = state;
+          option.textContent = state;
+          stateInput.appendChild(option);
+        });
+        const saved = localStorage.getItem("user");
+        let user = {};
+        if (saved) {
+          user = JSON.parse(saved);
+          document.getElementById("nameInput").value = user.name || "";
+          document.getElementById("contactInput").value = user.contact || "";
+          document.getElementById("emailInput").value = user.email || "";
+          document.getElementById("passwordInput").placeholder =
+            user.password || "";
+          document.getElementById("countryInput").value = user.country || "";
+          document.getElementById("stateInput").value = user.state || "";
+          const genderInput = user.gender || "";
+          if (genderInput === "Male") {
+            document.getElementById("genderMale").checked = true;
+          } else {
+            document.getElementById("genderFemale").checked = true;
+          }
+        }
+
+        const categoryForm = document.getElementById("categoryForm");
+        categoryForm.addEventListener("submit", function (event) {
+          event.preventDefault();
+          const name = document.getElementById("nameInput").value;
+          const contact = document.getElementById("contactInput").value;
+          const email = document.getElementById("emailInput").value;
+          const password = document.getElementById("passwordInput").value;
+          const country = document.getElementById("countryInput").value;
+          const gender = document.querySelector(
+            'input[name="genderInput"]:checked'
+          ).value;
+          const state = document.getElementById("stateInput").value;
+          const formData = {
+            name: name,
+            contact: contact,
+            email: email,
+            password: password,
+            country: country,
+            gender: gender,
+            state: state,
+          };
+          fetch(`/api/admin/updateuser/${user._id}`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Network response was not ok");
+              }
+              return response.json();
+            })
+            .then((data) => {
+              console.log("Data sent successfully:", data);
+              window.location.replace(document.referrer);
+            })
+            .catch((error) => {
+              console.error("There was a problem sending the data:", error);
+            });
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -16,9 +16,9 @@ module.exports = async (req, res) => {
     //   }
     //   user.image = imageUrl;
     // }
-    const hashedPassword = "";
+    let hashedPassword = "";
     if (req.body.password) {
-      hashedPassword = encrypt(req.body.password);
+      hashedPassword = await encrypt(req.body.password);
     }
     user.name = req.body.name || user.name;
     user.contact = req.body.contact || user.contact;

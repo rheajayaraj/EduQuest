@@ -54,7 +54,7 @@ const listcoursecontent = require("../../controllers/admin/coursecontent/listcou
 router.post("/admin/createcoursecontent/:id", createcoursecontent);
 router.patch("/admin/updatecoursecontent/:id", updatecoursecontent);
 router.delete("/admin/deletecoursecontent/:id", deletecoursecontent);
-router.get("/admin/listcoursecontent/:id", listcoursecontent);
+router.get("/admin/listcoursecontent", listcoursecontent);
 
 //course-user
 const deletecourseuser = require("../../controllers/admin/usercourse/deleteusercourse");

@@ -3,7 +3,11 @@ const mongoose = require("mongoose");
 
 module.exports = async (req, res) => {
   try {
-    data = new Course({
+    const existingCourse = await Course.findOne({ course_id: req.params.id });
+    if (existingCourse) {
+      return res.status(400).json({ error: "Course already exists" });
+    }
+    const data = new Course({
       course_id: new mongoose.Types.ObjectId(req.params.id),
       short_description: req.body.short_description,
       long_description: req.body.long_description,
@@ -13,6 +17,6 @@ module.exports = async (req, res) => {
     const dataToSave = await data.save();
     return res.status(200).json(dataToSave);
   } catch (error) {
-    return res.status(400).json({ error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 };

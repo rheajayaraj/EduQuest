@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EduQuest</title>
+    <%- include('partials/headerlinks.ejs') %>
+  </head>
+
+  <body>
+    <!-- Body Wrapper -->
+    <div
+      class="page-wrapper"
+      id="main-wrapper"
+      data-layout="vertical"
+      data-navbarbg="skin6"
+      data-sidebartype="full"
+      data-sidebar-position="fixed"
+      data-header-position="fixed"
+    >
+      <%- include('partials/sidebar.ejs') %>
+      <!-- Main wrapper -->
+      <div class="body-wrapper">
+        <%- include('partials/navbar.ejs') %>
+        <div class="container-fluid">
+          <h2>Create course content</h2>
+          <div class="row" id="userCardsContainer">
+            <div class="card">
+              <div class="card-body">
+                <form id="Form">
+                  <div class="mb-3">
+                    <label class="form-label">Short Description</label>
+                    <input class="form-control" id="shortdesInput" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Long Description</label>
+                    <input class="form-control" id="longdesInput" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Video URL</label>
+                    <input class="form-control" id="videoUrlInput" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Thumbnail URL</label>
+                    <input class="form-control" id="thumbnailUrlInput" />
+                  </div>
+                  <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%- include('partials/footerscripts.ejs') %>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const saved = localStorage.getItem("course");
+        let data = {};
+        if (saved) {
+          data = JSON.parse(saved);
+        }
+
+        const Form = document.getElementById("Form");
+        Form.addEventListener("submit", function (event) {
+          event.preventDefault();
+          const shortdes = document.getElementById("shortdesInput").value;
+          const longdes = document.getElementById("longdesInput").value;
+          const video = document.getElementById("videoUrlInput").value;
+          const thumbnail = document.getElementById("thumbnailUrlInput").value;
+          const formData = {
+            short_description: shortdes,
+            long_description: longdes,
+            video_path: video,
+            thumbnail_path: thumbnail,
+          };
+
+          fetch(`/api/admin/createcoursecontent/${data._id}`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Network response was not ok");
+              }
+              return response.json();
+            })
+            .then((data) => {
+              console.log("Data sent successfully:", data);
+              if (data.status === 200) {
+                window.history.back(document.referrer);
+              } else if (data.status === 400) {
+                alert("Error: Course content already exists.");
+                window.history.back(document.referrer);
+              }
+            })
+            .catch((error) => {
+              console.error("There was a problem sending the data:", error);
+              alert("Error: Course creation failed.");
+              window.history.back(document.referrer);
+            });
+        });
+      });
+    </script>
+  </body>
+</html>

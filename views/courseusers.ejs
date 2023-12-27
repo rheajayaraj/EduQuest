@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EduQuest</title>
+    <%- include('partials/headerlinks.ejs') %>
+  </head>
+
+  <body>
+    <!--  Body Wrapper -->
+    <div
+      class="page-wrapper"
+      id="main-wrapper"
+      data-layout="vertical"
+      data-navbarbg="skin6"
+      data-sidebartype="full"
+      data-sidebar-position="fixed"
+      data-header-position="fixed"
+    >
+      <%- include('partials/sidebar.ejs') %>
+      <!--  Main wrapper -->
+      <div class="body-wrapper">
+        <%- include('partials/navbar.ejs') %>
+        <div class="container-fluid">
+          <div class="row" id="userCardsContainer">
+            <% apiData.forEach(user => { %>
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">User ID:</h5>
+                  <p class="card-text"><%= user.user_id %></p>
+                  <h5 class="card-title">Course ID:</h5>
+                  <p class="card-text"><%= user.course_id%></p>
+                  <!-- Add other user data here -->
+                  <button
+                    type="button"
+                    class="btn btn-outline-danger m-1 deleteButton"
+                    data-id="<%=user._id%>"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+            <% }); %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%- include('partials/footerscripts.ejs') %>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".deleteButton").forEach((button) => {
+          button.addEventListener("click", function () {
+            const Id = this.getAttribute("data-id");
+            const confirmDelete = window.confirm(
+              "Are you sure you want to delete this?"
+            );
+            if (confirmDelete) {
+              fetch(`/api/admin/deletecourseuser/${Id}`, {
+                method: "DELETE",
+              })
+                .then((response) => {
+                  if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                  }
+                  console.log("API request successful");
+                  window.location.reload();
+                })
+                .catch((error) => {
+                  console.error(
+                    "There was a problem with the API request:",
+                    error
+                  );
+                });
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

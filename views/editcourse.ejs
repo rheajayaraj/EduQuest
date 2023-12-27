@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EduQuest</title>
+    <%- include('partials/headerlinks.ejs') %>
+  </head>
+
+  <body>
+    <!--  Body Wrapper -->
+    <div
+      class="page-wrapper"
+      id="main-wrapper"
+      data-layout="vertical"
+      data-navbarbg="skin6"
+      data-sidebartype="full"
+      data-sidebar-position="fixed"
+      data-header-position="fixed"
+    >
+      <%- include('partials/sidebar.ejs') %>
+      <!--  Main wrapper -->
+      <div class="body-wrapper">
+        <%- include('partials/navbar.ejs') %>
+        <div class="container-fluid">
+          <h2>Edit course</h2>
+          <div class="row" id="userCardsContainer">
+            <div class="card">
+              <div class="card-body">
+                <form id="Form">
+                  <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    <input class="form-control" id="nameInput" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Duration</label>
+                    <input class="form-control" id="durationInput" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Educator</label>
+                    <input class="form-control" id="educatorInput" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Category</label>
+                    <select class="form-select" id="categoryInput"></select>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%- include('partials/footerscripts.ejs') %>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const saved = localStorage.getItem("course");
+        let data = {};
+        if (saved) {
+          data = JSON.parse(saved);
+          document.getElementById("nameInput").value = data.name || "";
+          document.getElementById("durationInput").value = data.duration || "";
+          document.getElementById("educatorInput").value = data.educator || "";
+        }
+
+        fetch("/api/admin/listcategory")
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json();
+          })
+          .then((categories) => {
+            const categoryInput = document.getElementById("categoryInput");
+            categories.forEach((category) => {
+              const option = document.createElement("option");
+              option.value = category.name;
+              option.textContent = category.name;
+              categoryInput.appendChild(option);
+            });
+            document.getElementById("categoryInput").value =
+              data.category_id || "";
+          })
+          .catch((error) => {
+            console.error("Error fetching categories:", error);
+          });
+
+        const Form = document.getElementById("Form");
+        Form.addEventListener("submit", function (event) {
+          event.preventDefault();
+          const name = document.getElementById("nameInput").value;
+          const duration = document.getElementById("durationInput").value;
+          const educator = document.getElementById("educatorInput").value;
+          const category = document.getElementById("categoryInput").value;
+          const formData = {
+            name: name,
+            duration: duration,
+            educator: educator,
+            category: category,
+          };
+          fetch(`/api/admin/updatecourse/${data._id}`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Network response was not ok");
+              }
+              return response.json();
+            })
+            .then((data) => {
+              console.log("Data sent successfully:", data);
+              window.location.replace(document.referrer);
+            })
+            .catch((error) => {
+              console.error("There was a problem sending the data:", error);
+            });
+        });
+      });
+    </script>
+  </body>
+</html>

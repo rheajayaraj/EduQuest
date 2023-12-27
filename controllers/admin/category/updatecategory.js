@@ -7,6 +7,8 @@ module.exports = async (req, res) => {
       return res.status(404).json({ message: "Category not found" });
     }
     category.name = req.body.name || category.name;
+    category.thumbnail_path =
+      req.body.thumbnail_path || category.thumbnail_path;
     const updatedCategory = await category.save();
     return res.status(200).json(updatedCategory);
   } catch (error) {

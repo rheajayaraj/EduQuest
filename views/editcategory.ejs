@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EduQuest</title>
+    <%- include('partials/headerlinks.ejs') %>
+  </head>
+
+  <body>
+    <!--  Body Wrapper -->
+    <div
+      class="page-wrapper"
+      id="main-wrapper"
+      data-layout="vertical"
+      data-navbarbg="skin6"
+      data-sidebartype="full"
+      data-sidebar-position="fixed"
+      data-header-position="fixed"
+    >
+      <%- include('partials/sidebar.ejs') %>
+      <!--  Main wrapper -->
+      <div class="body-wrapper">
+        <%- include('partials/navbar.ejs') %>
+        <div class="container-fluid">
+          <h2>Edit category</h2>
+          <div class="row" id="userCardsContainer">
+            <div class="card">
+              <div class="card-body">
+                <form id="categoryForm">
+                  <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    <input class="form-control" id="categoryNameInput" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Thumbnail URL</label>
+                    <input class="form-control" id="thumbnailInput" />
+                  </div>
+                  <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%- include('partials/footerscripts.ejs') %>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const saved = localStorage.getItem("category");
+        let category = {};
+        if (saved) {
+          category = JSON.parse(saved);
+          document.getElementById("categoryNameInput").value =
+            category.name || "";
+          document.getElementById("thumbnailInput").value =
+            category.thumbnail_path || "";
+        }
+
+        const categoryForm = document.getElementById("categoryForm");
+        categoryForm.addEventListener("submit", function (event) {
+          event.preventDefault();
+          const categoryName =
+            document.getElementById("categoryNameInput").value;
+          const thumbnail_path =
+            document.getElementById("thumbnailInput").value;
+          const formData = {
+            name: categoryName,
+            thumbnail_path: thumbnail_path,
+          };
+          fetch(`/api/admin/updatecategory/${category._id}`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Network response was not ok");
+              }
+              return response.json();
+            })
+            .then((data) => {
+              console.log("Data sent successfully:", data);
+              window.location.replace(document.referrer);
+            })
+            .catch((error) => {
+              console.error("There was a problem sending the data:", error);
+            });
+        });
+      });
+    </script>
+  </body>
+</html>

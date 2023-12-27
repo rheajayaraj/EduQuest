@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EduQuest</title>
+    <%- include('partials/headerlinks.ejs') %>
+  </head>
+
+  <body>
+    <!--  Body Wrapper -->
+    <div
+      class="page-wrapper"
+      id="main-wrapper"
+      data-layout="vertical"
+      data-navbarbg="skin6"
+      data-sidebartype="full"
+      data-sidebar-position="fixed"
+      data-header-position="fixed"
+    >
+      <%- include('partials/sidebar.ejs') %>
+      <!--  Main wrapper -->
+      <div class="body-wrapper">
+        <%- include('partials/navbar.ejs') %>
+        <div class="container-fluid">
+          <h2>Edit plan</h2>
+          <div class="row" id="userCardsContainer">
+            <div class="card">
+              <div class="card-body">
+                <form id="Form">
+                  <div class="mb-3">
+                    <label class="form-label">Name</label>
+                    <input class="form-control" id="nameInput" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Price</label>
+                    <input class="form-control" id="priceInput" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Time period</label>
+                    <input class="form-control" id="timeInput" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Is active</label>
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="activeInput"
+                        id="activeYes"
+                        value="true"
+                      />
+                      <label class="form-check-label" for="activeYes">
+                        Yes
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        name="activeInput"
+                        id="activeNo"
+                        value="false"
+                      />
+                      <label class="form-check-label" for="activeNo">
+                        No
+                      </label>
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%- include('partials/footerscripts.ejs') %>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const saved = localStorage.getItem("plan");
+        let data = {};
+        if (saved) {
+          data = JSON.parse(saved);
+          document.getElementById("nameInput").value = data.name || "";
+          document.getElementById("priceInput").value = data.price || "";
+          document.getElementById("timeInput").value = data.time_period || "";
+          const activeInput = data.is_active || "";
+          if (activeInput === true) {
+            document.getElementById("activeYes").checked = true;
+          } else {
+            document.getElementById("activeNo").checked = true;
+          }
+        }
+
+        const Form = document.getElementById("Form");
+        Form.addEventListener("submit", function (event) {
+          event.preventDefault();
+          const name = document.getElementById("nameInput").value;
+          const price = document.getElementById("priceInput").value;
+          const time = document.getElementById("timeInput").value;
+          const active = document.querySelector(
+            'input[name="activeInput"]:checked'
+          ).value;
+          const formData = {
+            name: name,
+            price: price,
+            time_period: time,
+            is_active: active,
+          };
+          fetch(`/api/admin/updateplan/${data._id}`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Network response was not ok");
+              }
+              return response.json();
+            })
+            .then((data) => {
+              console.log("Data sent successfully:", data);
+              window.location.replace(document.referrer);
+            })
+            .catch((error) => {
+              console.error("There was a problem sending the data:", error);
+            });
+        });
+      });
+    </script>
+  </body>
+</html>
