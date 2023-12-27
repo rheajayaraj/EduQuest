@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>EduQuest</title>
+    <title>EduQuest - Subscription plans</title>
     <%- include('partials/headerlinks.ejs') %>
   </head>
 
@@ -39,7 +39,6 @@
                   <p class="card-text">Price: <%=plan.price%></p>
                   <p class="card-text">Time period: <%=plan.time_period%></p>
                   <p class="card-text">Is active: <%=plan.is_active%></p>
-                  <!-- Add other user data here -->
                   <a
                     href="/editplan"
                     onclick="saveCategoryData('<%= JSON.stringify(plan) %>')"

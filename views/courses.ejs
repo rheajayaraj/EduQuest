@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>EduQuest</title>
+    <title>EduQuest - Courses</title>
     <%- include('partials/headerlinks.ejs') %>
   </head>
 
@@ -40,7 +40,6 @@
                   <p class="card-text">Educator: <%=course.educator%></p>
                   <p class="card-text">Category ID: <%=course.category_id%></p>
                   </p>
-                  <!-- Add other user data here -->
                   <a
                     href="/createcoursecontent"
                     onclick="saveCategoryData('<%= JSON.stringify(course) %>')"

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>EduQuest</title>
+    <title>EduQuest - Users</title>
     <%- include('partials/headerlinks.ejs') %>
   </head>
 
@@ -42,7 +42,6 @@
                   <p class="card-text"><%=user.gender%></p>
                   <p class="card-text"><%=user.state%></p>
                   <p class="card-text"><%=user.country%></p>
-                  <!-- Add other user data here -->
                   <a
                     href="/edituser"
                     onclick="saveCategoryData('<%= JSON.stringify(user) %>')"
@@ -76,7 +75,7 @@
               "Are you sure you want to delete this?"
             );
             if (confirmDelete) {
-              fetch(`/api/admin/deleteplanuser/${Id}`, {
+              fetch(`/api/admin/deleteuser/${Id}`, {
                 method: "DELETE",
               })
                 .then((response) => {

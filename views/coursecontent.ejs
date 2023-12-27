@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>EduQuest</title>
+    <title>EduQuest - Course content</title>
     <%- include('partials/headerlinks.ejs') %>
   </head>
 
@@ -39,7 +39,6 @@
                   <p class="card-text">Video URL: <%=course.video_path%></p>
                   <p class="card-text">
                     Thumbnail URL: <%=course.thumbnail_path%>
-                    <!-- Add other user data here -->
                     <a
                       href="/editcoursecontent"
                       onclick="saveCategoryData('<%= JSON.stringify(course) %>')"

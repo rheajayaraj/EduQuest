@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>EduQuest</title>
+    <title>EduQuest - Create course content</title>
     <%- include('partials/headerlinks.ejs') %>
   </head>
 
@@ -89,17 +89,10 @@
               return response.json();
             })
             .then((data) => {
-              console.log("Data sent successfully:", data);
-              if (data.status === 200) {
-                window.history.back(document.referrer);
-              } else if (data.status === 400) {
-                alert("Error: Course content already exists.");
-                window.history.back(document.referrer);
-              }
+              window.history.back(document.referrer);
             })
             .catch((error) => {
-              console.error("There was a problem sending the data:", error);
-              alert("Error: Course creation failed.");
+              alert("Error: Course content already defined.");
               window.history.back(document.referrer);
             });
         });
