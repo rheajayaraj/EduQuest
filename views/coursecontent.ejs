@@ -40,7 +40,7 @@
                   <p class="card-text">
                     Thumbnail URL: <%=course.thumbnail_path%>
                     <a
-                      href="/editcoursecontent"
+                      href="<%= admin %>/editcoursecontent"
                       onclick="saveCategoryData('<%= JSON.stringify(course) %>')"
                     >
                       <button

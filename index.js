@@ -48,7 +48,14 @@ app.use(express.static(__dirname + "/assets"));
 app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
 
-app.get("/listusers", async (req, res) => {
+const admin = "/admin-panel";
+
+app.use((req, res, next) => {
+  res.locals.admin = "/admin-panel";
+  next();
+});
+
+app.get(`${admin}/listusers`, async (req, res) => {
   try {
     const apiResponse = await axios.get(
       "http://localhost:3000/api/admin/listuser"
@@ -61,7 +68,7 @@ app.get("/listusers", async (req, res) => {
   }
 });
 
-app.get("/listcategories", async (req, res) => {
+app.get(`${admin}/listcategories`, async (req, res) => {
   try {
     const apiResponse = await axios.get(
       "http://localhost:3000/api/admin/listcategory"
@@ -74,7 +81,7 @@ app.get("/listcategories", async (req, res) => {
   }
 });
 
-app.get("/listcourses", async (req, res) => {
+app.get(`${admin}/listcourses`, async (req, res) => {
   try {
     const apiResponse = await axios.get(
       "http://localhost:3000/api/admin/listcourse"
@@ -87,7 +94,7 @@ app.get("/listcourses", async (req, res) => {
   }
 });
 
-app.get("/listcoursecontent", async (req, res) => {
+app.get(`${admin}/listcoursecontent`, async (req, res) => {
   try {
     const apiResponse = await axios.get(
       "http://localhost:3000/api/admin/listcoursecontent"
@@ -100,7 +107,7 @@ app.get("/listcoursecontent", async (req, res) => {
   }
 });
 
-app.get("/listplans", async (req, res) => {
+app.get(`${admin}/listplans`, async (req, res) => {
   try {
     const apiResponse = await axios.get(
       "http://localhost:3000/api/admin/listplan"
@@ -113,7 +120,7 @@ app.get("/listplans", async (req, res) => {
   }
 });
 
-app.get("/listcourseusers", async (req, res) => {
+app.get(`${admin}/listcourseusers`, async (req, res) => {
   try {
     const apiResponse = await axios.get(
       "http://localhost:3000/api/admin/listcourseuser"
@@ -126,7 +133,7 @@ app.get("/listcourseusers", async (req, res) => {
   }
 });
 
-app.get("/listplanusers", async (req, res) => {
+app.get(`${admin}/listplanusers`, async (req, res) => {
   try {
     const apiResponse = await axios.get(
       "http://localhost:3000/api/admin/listplanuser"
@@ -139,7 +146,7 @@ app.get("/listplanusers", async (req, res) => {
   }
 });
 
-app.get("/editcategory", async (req, res) => {
+app.get(`${admin}/editcategory`, async (req, res) => {
   try {
     res.render("editcategory");
   } catch (error) {
@@ -148,7 +155,7 @@ app.get("/editcategory", async (req, res) => {
   }
 });
 
-app.get("/editcoursecontent", async (req, res) => {
+app.get(`${admin}/editcoursecontent`, async (req, res) => {
   try {
     res.render("editcoursecontent");
   } catch (error) {
@@ -157,7 +164,7 @@ app.get("/editcoursecontent", async (req, res) => {
   }
 });
 
-app.get("/editcourse", async (req, res) => {
+app.get(`${admin}/editcourse`, async (req, res) => {
   try {
     res.render("editcourse");
   } catch (error) {
@@ -166,7 +173,7 @@ app.get("/editcourse", async (req, res) => {
   }
 });
 
-app.get("/editplan", async (req, res) => {
+app.get(`${admin}/editplan`, async (req, res) => {
   try {
     res.render("editplan");
   } catch (error) {
@@ -175,7 +182,7 @@ app.get("/editplan", async (req, res) => {
   }
 });
 
-app.get("/edituser", async (req, res) => {
+app.get(`${admin}/edituser`, async (req, res) => {
   try {
     res.render("edituser");
   } catch (error) {
@@ -184,7 +191,7 @@ app.get("/edituser", async (req, res) => {
   }
 });
 
-app.get("/createcategory", async (req, res) => {
+app.get(`${admin}/createcategory`, async (req, res) => {
   try {
     res.render("createcategory");
   } catch (error) {
@@ -193,7 +200,7 @@ app.get("/createcategory", async (req, res) => {
   }
 });
 
-app.get("/createcourse", async (req, res) => {
+app.get(`${admin}/createcourse`, async (req, res) => {
   try {
     res.render("createcourse");
   } catch (error) {
@@ -202,7 +209,7 @@ app.get("/createcourse", async (req, res) => {
   }
 });
 
-app.get("/createcoursecontent", async (req, res) => {
+app.get(`${admin}/createcoursecontent`, async (req, res) => {
   try {
     res.render("createcoursecontent");
   } catch (error) {
@@ -211,7 +218,7 @@ app.get("/createcoursecontent", async (req, res) => {
   }
 });
 
-app.get("/createplan", async (req, res) => {
+app.get(`${admin}/createplan`, async (req, res) => {
   try {
     res.render("createplan");
   } catch (error) {
@@ -220,7 +227,7 @@ app.get("/createplan", async (req, res) => {
   }
 });
 
-app.get("/createuser", async (req, res) => {
+app.get(`${admin}/createuser`, async (req, res) => {
   try {
     res.render("createuser");
   } catch (error) {

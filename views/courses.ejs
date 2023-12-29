@@ -24,7 +24,7 @@
         <%- include('partials/navbar.ejs') %>
         <div class="container-fluid">
             <div class="d-flex justify-content-end">
-            <a href="/createcourse">
+            <a href="<%= admin %>/createcourse">
               <button type="button" class="btn btn-secondary m-1">
                 Create
               </button>
@@ -41,13 +41,13 @@
                   <p class="card-text">Category ID: <%=course.category_id%></p>
                   </p>
                   <a
-                    href="/createcoursecontent"
+                    href="<%= admin %>/createcoursecontent"
                     onclick="saveCategoryData('<%= JSON.stringify(course) %>')"
                   >
                     <button type="button" class="btn btn-outline-info m-1">Create course content</button>
                   </a>
                   <a
-                    href="/editcourse"
+                    href="<%= admin %>/editcourse"
                     onclick="saveCategoryData('<%= JSON.stringify(course) %>')"
                   >
                     <button type="button" class="btn btn-outline-secondary m-1">

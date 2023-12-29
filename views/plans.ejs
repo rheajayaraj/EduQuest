@@ -24,7 +24,7 @@
         <%- include('partials/navbar.ejs') %>
         <div class="container-fluid">
           <div class="d-flex justify-content-end">
-            <a href="/createplan">
+            <a href="<%= admin %>/createplan">
               <button type="button" class="btn btn-secondary m-1">
                 Create
               </button>
@@ -40,7 +40,7 @@
                   <p class="card-text">Time period: <%=plan.time_period%></p>
                   <p class="card-text">Is active: <%=plan.is_active%></p>
                   <a
-                    href="/editplan"
+                    href="<%= admin %>/editplan"
                     onclick="saveCategoryData('<%= JSON.stringify(plan) %>')"
                   >
                     <button type="button" class="btn btn-outline-secondary m-1">
