@@ -41,10 +41,6 @@
                     <input class="form-control" id="emailInput" type="email" />
                   </div>
                   <div class="mb-3">
-                    <label class="form-label">Password</label>
-                    <input class="form-control" id="passwordInput" />
-                  </div>
-                  <div class="mb-3">
                     <label class="form-label">Gender</label>
                     <div class="form-check">
                       <input
@@ -134,8 +130,6 @@
           document.getElementById("nameInput").value = user.name || "";
           document.getElementById("contactInput").value = user.contact || "";
           document.getElementById("emailInput").value = user.email || "";
-          document.getElementById("passwordInput").placeholder =
-            user.password || "";
           document.getElementById("countryInput").value = user.country || "";
           document.getElementById("stateInput").value = user.state || "";
           const genderInput = user.gender || "";
@@ -152,7 +146,6 @@
           const name = document.getElementById("nameInput").value;
           const contact = document.getElementById("contactInput").value;
           const email = document.getElementById("emailInput").value;
-          const password = document.getElementById("passwordInput").value;
           const country = document.getElementById("countryInput").value;
           const gender = document.querySelector(
             'input[name="genderInput"]:checked'
@@ -162,7 +155,6 @@
             name: name,
             contact: contact,
             email: email,
-            password: password,
             country: country,
             gender: gender,
             state: state,

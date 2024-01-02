@@ -28,17 +28,30 @@
             <div class="col-md-4">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title"><%= course.name %></h5>
-                  <p class="card-text">Course ID: <%=course.course_id%></p>
+                  <% if (course.course_id && course.course_id.name) { %>
+                  <h5 class="card-title"><%= course.course_id.name %></h5>
+                  <% } else { %>
+                  <h5 class="card-title">Course</h5>
+                  <% } %>
                   <p class="card-text">
-                    Short Description: <%=course.short_description%>
+                    Short Description: <%= course.short_description %>
                   </p>
                   <p class="card-text">
-                    Long Description: <%=course.long_description%>
+                    Long Description: <%= course.long_description %>
                   </p>
-                  <p class="card-text">Video URL: <%=course.video_path%></p>
                   <p class="card-text">
-                    Thumbnail URL: <%=course.thumbnail_path%>
+                    Video URL:
+                    <a href="<%= course.video_path %>" target="_blank"
+                      ><%= course.video_path %></a
+                    >
+                  </p>
+                  <p class="card-text">
+                    Thumbnail URL:
+                    <a href="<%= course.thumbnail_path %>" target="_blank"
+                      ><%= course.thumbnail_path %></a
+                    >
+                  </p>
+                  <div class="mt-auto">
                     <a
                       href="<%= admin %>/editcoursecontent"
                       onclick="saveCategoryData('<%= JSON.stringify(course) %>')"
@@ -53,11 +66,11 @@
                     <button
                       type="button"
                       class="btn btn-outline-danger m-1 deleteButton"
-                      data-id="<%=course._id%>"
+                      data-id="<%= course._id %>"
                     >
                       Delete
                     </button>
-                  </p>
+                  </div>
                 </div>
               </div>
             </div>

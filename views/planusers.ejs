@@ -28,17 +28,19 @@
             <div class="col-md-4">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title">User ID:</h5>
-                  <p class="card-text"><%= user.user_id %></p>
-                  <h5 class="card-title">Plan ID:</h5>
-                  <p class="card-text"><%= user.subplan_id%></p>
-                  <button
-                    type="button"
-                    class="btn btn-outline-danger m-1 deleteButton"
-                    data-id="<%=plan._id%>"
-                  >
-                    Delete
-                  </button>
+                  <h5 class="card-title">User:</h5>
+                  <p class="card-text"><%= user.user_id.name %></p>
+                  <h5 class="card-title">Plan:</h5>
+                  <p class="card-text"><%= user.subplan_id.name%></p>
+                  <div class="mt-auto">
+                    <button
+                      type="button"
+                      class="btn btn-outline-danger m-1 deleteButton"
+                      data-id="<%=user._id%>"
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

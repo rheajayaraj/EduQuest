@@ -38,7 +38,7 @@
                   <h5 class="card-title"><%= course.name %></h5>
                   <p class="card-text">Duration: <%=course.duration%></p>
                   <p class="card-text">Educator: <%=course.educator%></p>
-                  <p class="card-text">Category ID: <%=course.category_id%></p>
+                  <p class="card-text">Category: <%=course.category_id.name%></p>
                   </p>
                   <a
                     href="<%= admin %>/createcoursecontent"
@@ -46,6 +46,7 @@
                   >
                     <button type="button" class="btn btn-outline-info m-1">Create course content</button>
                   </a>
+                  <div class="mt-auto">
                   <a
                     href="<%= admin %>/editcourse"
                     onclick="saveCategoryData('<%= JSON.stringify(course) %>')"
@@ -61,6 +62,7 @@
                   >
                     Delete
                   </button>
+                  </div>
                 </div>
               </div>
             </div>

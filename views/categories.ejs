@@ -37,24 +37,31 @@
                 <div class="card-body">
                   <h5 class="card-title"><%= category.name %></h5>
                   <p class="card-text">
-                    Thumbnail URL: <%=category.thumbnail_path%>
+                    Thumbnail URL:
+                    <a href="<%= category.thumbnail_path %>" target="_blank"
+                      ><%= category.thumbnail_path %></a
+                    >
                   </p>
-                  <!-- Add other user data here -->
-                  <a
-                    href="<%= admin %>/editcategory"
-                    onclick="saveCategoryData('<%= JSON.stringify(category) %>')"
-                  >
-                    <button type="button" class="btn btn-outline-secondary m-1">
-                      Edit
+                  <div class="mt-auto">
+                    <a
+                      href="<%= admin %>/editcategory"
+                      onclick="saveCategoryData('<%= JSON.stringify(category) %>')"
+                    >
+                      <button
+                        type="button"
+                        class="btn btn-outline-secondary m-1"
+                      >
+                        Edit
+                      </button>
+                    </a>
+                    <button
+                      type="button"
+                      class="btn btn-outline-danger m-1 deleteButton"
+                      data-id="<%= category._id %>"
+                    >
+                      Delete
                     </button>
-                  </a>
-                  <button
-                    type="button"
-                    class="btn btn-outline-danger m-1 deleteButton"
-                    data-id="<%= category._id %>"
-                  >
-                    Delete
-                  </button>
+                  </div>
                 </div>
               </div>
             </div>

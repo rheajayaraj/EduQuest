@@ -38,25 +38,29 @@
                   <h5 class="card-title"><%= user.name %></h5>
                   <p class="card-text"><%=user.contact%></p>
                   <p class="card-text"><%=user.email%></p>
-                  <p class="card-text"><%=user.password%></p>
                   <p class="card-text"><%=user.gender%></p>
                   <p class="card-text"><%=user.state%></p>
                   <p class="card-text"><%=user.country%></p>
-                  <a
-                    href="<%= admin %>/edituser"
-                    onclick="saveCategoryData('<%= JSON.stringify(user) %>')"
-                  >
-                    <button type="button" class="btn btn-outline-secondary m-1">
-                      Edit
+                  <div class="mt-auto">
+                    <a
+                      href="<%= admin %>/edituser"
+                      onclick="saveCategoryData('<%= JSON.stringify(user) %>')"
+                    >
+                      <button
+                        type="button"
+                        class="btn btn-outline-secondary m-1"
+                      >
+                        Edit
+                      </button>
+                    </a>
+                    <button
+                      type="button"
+                      class="btn btn-outline-danger m-1 deleteButton"
+                      data-id="<%= user._id %>"
+                    >
+                      Delete
                     </button>
-                  </a>
-                  <button
-                    type="button"
-                    class="btn btn-outline-danger m-1 deleteButton"
-                    data-id="<%= user._id %>"
-                  >
-                    Delete
-                  </button>
+                  </div>
                 </div>
               </div>
             </div>

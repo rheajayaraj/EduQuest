@@ -39,21 +39,26 @@
                   <p class="card-text">Price: <%=plan.price%></p>
                   <p class="card-text">Time period: <%=plan.time_period%></p>
                   <p class="card-text">Is active: <%=plan.is_active%></p>
-                  <a
-                    href="<%= admin %>/editplan"
-                    onclick="saveCategoryData('<%= JSON.stringify(plan) %>')"
-                  >
-                    <button type="button" class="btn btn-outline-secondary m-1">
-                      Edit
+                  <div class="mt-auto">
+                    <a
+                      href="<%= admin %>/editplan"
+                      onclick="saveCategoryData('<%= JSON.stringify(plan) %>')"
+                    >
+                      <button
+                        type="button"
+                        class="btn btn-outline-secondary m-1"
+                      >
+                        Edit
+                      </button>
+                    </a>
+                    <button
+                      type="button"
+                      class="btn btn-outline-danger m-1 deleteButton"
+                      data-id="<%=plan._id%>"
+                    >
+                      Delete
                     </button>
-                  </a>
-                  <button
-                    type="button"
-                    class="btn btn-outline-danger m-1 deleteButton"
-                    data-id="<%=plan._id%>"
-                  >
-                    Delete
-                  </button>
+                  </div>
                 </div>
               </div>
             </div>
