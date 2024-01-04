@@ -1,4 +1,5 @@
 const Course = require("../../models/coursesjoined");
+const PlanUser = require("../../models/usersubscriptions");
 const mongoose = require("mongoose");
 const Courses = require("../../models/courses");
 const userverify = require("../../middleware/userverification");
@@ -9,6 +10,10 @@ module.exports = async (req, res) => {
     if (typeof user === "string") {
       return res.status(404).json({ message: user });
     }
+    const plan = await PlanUser.findOne({ user_id: user.id });
+    if (!plan) {
+      return res.status(404).json({ message: "User not subscribed yet" });
+    }
     const courses = await Courses.findById(req.params.courseid);
     if (!courses) {
       return res.status(404).json({ message: "Course not found" });
@@ -18,7 +23,7 @@ module.exports = async (req, res) => {
       user_id: new mongoose.Types.ObjectId(user.id),
     });
     if (course) {
-      return res.status(400).json({ message: "Course already subscribed" });
+      return res.status(400).json({ message: "Course already enrolled" });
     }
     const data = {
       user_id: new mongoose.Types.ObjectId(user.id),

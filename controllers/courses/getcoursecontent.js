@@ -5,7 +5,7 @@ module.exports = async (req, res) => {
   try {
     const course = await Course.findOne({
       course_id: new mongoose.Types.ObjectId(req.params.courseid),
-    });
+    }).populate("course_id");
     if (course) {
       return res.status(200).json(course);
     } else {

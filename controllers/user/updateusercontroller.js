@@ -1,6 +1,6 @@
 const userverify = require("../../middleware/userverification");
-// const uploadBase64Image = require("../../middleware/uploadimg");
-// const deleteFromS3 = require("../../middleware/deleteFromS3");
+const uploadBase64Image = require("../../middleware/uploadimg");
+const deleteFromS3 = require("../../middleware/deleteFromS3");
 
 module.exports = async (req, res) => {
   try {
@@ -8,13 +8,13 @@ module.exports = async (req, res) => {
     if (typeof user === "string") {
       return res.status(404).json({ message: user });
     }
-    // if (req.body.image) {
-    //   const imageUrl = await uploadBase64Image(req.body.image);
-    //   if (user.image) {
-    //     await deleteFromS3(user.image);
-    //   }
-    //   user.image = imageUrl;
-    // }
+    if (req.body.image) {
+      const imageUrl = await uploadBase64Image(req.body.image);
+      if (user.image) {
+        await deleteFromS3(user.image);
+      }
+      user.image = imageUrl;
+    }
     user.name = req.body.name || user.name;
     user.contact = req.body.contact || user.contact;
     user.email = req.body.email || user.email;
