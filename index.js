@@ -51,6 +51,7 @@ app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
 
 const admin = "/admin-panel";
+const url = "http://localhost:3000";
 
 app.use((req, res, next) => {
   res.locals.admin = "/admin-panel";
@@ -59,9 +60,7 @@ app.use((req, res, next) => {
 
 app.get(`${admin}/listusers`, async (req, res) => {
   try {
-    const apiResponse = await axios.get(
-      "http://localhost:3000/api/admin/listuser"
-    );
+    const apiResponse = await axios.get(`${url}/api/admin/listuser`);
     const apiData = apiResponse.data;
     res.render("users", { apiData });
   } catch (error) {
@@ -72,9 +71,7 @@ app.get(`${admin}/listusers`, async (req, res) => {
 
 app.get(`${admin}/listcategories`, async (req, res) => {
   try {
-    const apiResponse = await axios.get(
-      "http://localhost:3000/api/admin/listcategory"
-    );
+    const apiResponse = await axios.get(`${url}/api/admin/listcategory`);
     const apiData = apiResponse.data;
     res.render("categories", { apiData });
   } catch (error) {
@@ -85,9 +82,7 @@ app.get(`${admin}/listcategories`, async (req, res) => {
 
 app.get(`${admin}/listcourses`, async (req, res) => {
   try {
-    const apiResponse = await axios.get(
-      "http://localhost:3000/api/admin/listcourse"
-    );
+    const apiResponse = await axios.get(`${url}/api/admin/listcourse`);
     const apiData = apiResponse.data;
     res.render("courses", { apiData });
   } catch (error) {
@@ -98,9 +93,7 @@ app.get(`${admin}/listcourses`, async (req, res) => {
 
 app.get(`${admin}/listcoursecontent`, async (req, res) => {
   try {
-    const apiResponse = await axios.get(
-      "http://localhost:3000/api/admin/listcoursecontent"
-    );
+    const apiResponse = await axios.get(`${url}/api/admin/listcoursecontent`);
     const apiData = apiResponse.data;
     res.render("coursecontent", { apiData });
   } catch (error) {
@@ -111,9 +104,7 @@ app.get(`${admin}/listcoursecontent`, async (req, res) => {
 
 app.get(`${admin}/listplans`, async (req, res) => {
   try {
-    const apiResponse = await axios.get(
-      "http://localhost:3000/api/admin/listplan"
-    );
+    const apiResponse = await axios.get(`${url}/api/admin/listplan`);
     const apiData = apiResponse.data;
     res.render("plans", { apiData });
   } catch (error) {
@@ -124,9 +115,7 @@ app.get(`${admin}/listplans`, async (req, res) => {
 
 app.get(`${admin}/listpayments`, async (req, res) => {
   try {
-    const apiResponse = await axios.get(
-      "http://localhost:3000/api/admin/listpayment"
-    );
+    const apiResponse = await axios.get(`${url}/api/admin/listpayment`);
     const apiData = apiResponse.data;
     res.render("payments", { apiData });
   } catch (error) {
@@ -137,9 +126,7 @@ app.get(`${admin}/listpayments`, async (req, res) => {
 
 app.get(`${admin}/listcourseusers`, async (req, res) => {
   try {
-    const apiResponse = await axios.get(
-      "http://localhost:3000/api/admin/listcourseuser"
-    );
+    const apiResponse = await axios.get(`${url}/api/admin/listcourseuser`);
     const apiData = apiResponse.data;
     res.render("courseusers", { apiData });
   } catch (error) {
@@ -150,9 +137,7 @@ app.get(`${admin}/listcourseusers`, async (req, res) => {
 
 app.get(`${admin}/listplanusers`, async (req, res) => {
   try {
-    const apiResponse = await axios.get(
-      "http://localhost:3000/api/admin/listplanuser"
-    );
+    const apiResponse = await axios.get(`${url}/api/admin/listplanuser`);
     const apiData = apiResponse.data;
     res.render("planusers", { apiData });
   } catch (error) {
