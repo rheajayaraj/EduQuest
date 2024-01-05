@@ -56,6 +56,11 @@ router.patch("/admin/updatecoursecontent/:id", updatecoursecontent);
 router.delete("/admin/deletecoursecontent/:id", deletecoursecontent);
 router.get("/admin/listcoursecontent", listcoursecontent);
 
+//payment
+const listpayment = require("../../controllers/admin/payment/listpayments");
+
+router.get("/admin/listpayment", listpayment);
+
 //course-user
 const deletecourseuser = require("../../controllers/admin/usercourse/deleteusercourse");
 const listcourseuser = require("../../controllers/admin/usercourse/listusercourse");

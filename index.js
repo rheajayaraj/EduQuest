@@ -8,6 +8,7 @@ const categoriesroutes = require("./routes/categories/routes");
 const subscriptionsroutes = require("./routes/subscriptions/routes");
 const coursesroutes = require("./routes/courses/routes");
 const adminroutes = require("./routes/admin/routes");
+const paymentroutes = require("./routes/payments/routes");
 const cors = require("cors");
 const axios = require("axios");
 
@@ -42,6 +43,7 @@ app.use("/api", categoriesroutes);
 app.use("/api", subscriptionsroutes);
 app.use("/api", coursesroutes);
 app.use("/api", adminroutes);
+app.use("/api", paymentroutes);
 
 app.use(express.static(__dirname + "/assets"));
 
@@ -114,6 +116,19 @@ app.get(`${admin}/listplans`, async (req, res) => {
     );
     const apiData = apiResponse.data;
     res.render("plans", { apiData });
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    res.status(500).send("Error fetching data");
+  }
+});
+
+app.get(`${admin}/listpayments`, async (req, res) => {
+  try {
+    const apiResponse = await axios.get(
+      "http://localhost:3000/api/admin/listpayment"
+    );
+    const apiData = apiResponse.data;
+    res.render("payments", { apiData });
   } catch (error) {
     console.error("Error fetching data:", error);
     res.status(500).send("Error fetching data");
