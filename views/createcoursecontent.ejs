@@ -27,7 +27,7 @@
           <div class="row" id="userCardsContainer">
             <div class="card">
               <div class="card-body">
-                <form id="Form">
+                <form id="Form" enctype="multipart/form-data" method="post">
                   <div class="mb-3">
                     <label class="form-label">Short Description</label>
                     <input class="form-control" id="shortdesInput" />
@@ -37,8 +37,13 @@
                     <input class="form-control" id="longdesInput" />
                   </div>
                   <div class="mb-3">
-                    <label class="form-label">Video URL</label>
-                    <input class="form-control" id="videoUrlInput" />
+                    <label class="form-label">Video</label>
+                    <input
+                      type="file"
+                      accept="video/mp4"
+                      class="form-control"
+                      id="videoInput"
+                    />
                   </div>
                   <div class="mb-3">
                     <label class="form-label">Thumbnail URL</label>
@@ -59,28 +64,38 @@
         let data = {};
         if (saved) {
           data = JSON.parse(saved);
+          document.getElementById("shortdesInput").value =
+            data.short_description || "";
+          document.getElementById("longdesInput").value =
+            data.long_description || "";
+          document.getElementById("videoUrlInput").value =
+            data.video_path || "";
+          document.getElementById("thumbnailUrlInput").value =
+            data.thumbnail_path || "";
         }
 
         const Form = document.getElementById("Form");
         Form.addEventListener("submit", function (event) {
           event.preventDefault();
-          const shortdes = document.getElementById("shortdesInput").value;
-          const longdes = document.getElementById("longdesInput").value;
-          const video = document.getElementById("videoUrlInput").value;
-          const thumbnail = document.getElementById("thumbnailUrlInput").value;
-          const formData = {
-            short_description: shortdes,
-            long_description: longdes,
-            video_path: video,
-            thumbnail_path: thumbnail,
-          };
+          const formData = new FormData();
+          formData.append(
+            "short_description",
+            document.getElementById("shortdesInput").value
+          );
+          formData.append(
+            "long_description",
+            document.getElementById("longdesInput").value
+          );
+          formData.append(
+            "thumbnail_path",
+            document.getElementById("thumbnailUrlInput").value
+          );
+          const videoFile = document.getElementById("videoInput").files[0];
+          formData.append("video", videoFile);
 
-          fetch(`/api/admin/createcoursecontent/${data._id}`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
+          fetch(`/api/admin/updatecoursecontent/${data._id}`, {
+            method: "PATCH",
+            body: formData,
           })
             .then((response) => {
               if (!response.ok) {
@@ -89,11 +104,11 @@
               return response.json();
             })
             .then((data) => {
-              window.history.back(document.referrer);
+              console.log("Data sent successfully:", data);
+              window.location.replace(document.referrer);
             })
             .catch((error) => {
-              alert("Error: Course content already defined.");
-              window.history.back(document.referrer);
+              console.error("There was a problem sending the data:", error);
             });
         });
       });
