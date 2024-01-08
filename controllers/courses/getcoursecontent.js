@@ -13,15 +13,17 @@ module.exports = async (req, res) => {
         secretAccessKey: process.env.AWS_ACCESS_KEY_SECRET,
         region: "ap-south-1",
       });
-      const key = course.video_path;
-      const bucketName = process.env.AWS_BUCKET_NAME;
-      const params = {
-        Bucket: bucketName,
-        Key: key,
-        Expires: 3600,
-      };
-      const presignedUrl = s3.getSignedUrl("getObject", params);
-      course.video_path = presignedUrl;
+      if (course.video_path) {
+        const key = course.video_path;
+        const bucketName = process.env.AWS_BUCKET_NAME;
+        const params = {
+          Bucket: bucketName,
+          Key: key,
+          Expires: 3600,
+        };
+        const presignedUrl = s3.getSignedUrl("getObject", params);
+        course.video_path = presignedUrl;
+      }
       return res.status(200).json(course);
     } else {
       return res.status(404).json({ error: "Course not found" });
