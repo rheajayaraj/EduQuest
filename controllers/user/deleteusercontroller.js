@@ -1,4 +1,6 @@
 const User = require("../../models/user");
+const Course = require("../../models/coursesjoined");
+const Plan = require("../../models/usersubscriptions");
 const userverify = require("../../middleware/userverification");
 const deleteFromS3 = require("../../middleware/deleteFromS3");
 
@@ -8,7 +10,11 @@ module.exports = async (req, res) => {
     if (typeof user === "string") {
       return res.status(404).json({ message: user });
     }
-    await deleteFromS3(user.image);
+    if (typeof user.image === "string" && user.image.length > 0) {
+      await deleteFromS3(user.image);
+    }
+    await Course.deleteMany({ user_id: user.id });
+    await Plan.deleteMany({ user_id: user.id });
     const deletedUser = await User.findByIdAndDelete(user.id);
     if (deletedUser) {
       return res.status(200).json({ message: "User deleted successfully" });
