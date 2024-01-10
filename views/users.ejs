@@ -41,6 +41,11 @@
                   <p class="card-text"><%=user.gender%></p>
                   <p class="card-text"><%=user.state%></p>
                   <p class="card-text"><%=user.country%></p>
+                  <p class="card-text">
+                    <a href="<%= user.image %>" target="_blank"
+                      ><%= user.image %></a
+                    >
+                  </p>
                   <div class="mt-auto">
                     <a
                       href="<%= admin %>/edituser"

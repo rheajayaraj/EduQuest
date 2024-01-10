@@ -23,8 +23,8 @@ module.exports = async (req, res) => {
     const emailOptions = {
       from: "<rheajayaraj1@gmail.com>",
       to: user.email,
-      subject: "Password reset",
-      text: `OTP: ${code}`,
+      subject: "EduQuest account password reset",
+      text: `Dear ${user.name},\n\nYou recently requested to reset your password for your account. Use the following OTP (One Time Password) to reset your password:\nOTP: ${code}\nPlease note that this OTP is valid for a limited time and can only be used once. If you didn't request this password reset, you can ignore this email.\n\nThank you,\nEduQuest`,
     };
     await SENDMAIL(emailOptions);
     return res.json({
