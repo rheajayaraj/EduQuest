@@ -14,6 +14,22 @@ module.exports = async (req, res) => {
     if (!plan) {
       return res.status(404).json({ message: "User not subscribed yet" });
     }
+    const time_period = plan.subplan_id.time_period;
+    const createdAt = plan.createdAt;
+    const currentDate = new Date();
+    let subscriptionEndDate = new Date(createdAt);
+    if (time_period.endsWith("m")) {
+      subscriptionEndDate.setMonth(
+        subscriptionEndDate.getMonth() + parseInt(time_period)
+      );
+    } else if (time_period.endsWith("y")) {
+      subscriptionEndDate.setFullYear(
+        subscriptionEndDate.getFullYear() + parseInt(time_period)
+      );
+    }
+    if (currentDate > subscriptionEndDate) {
+      return res.status(404).json({ message: "User subscription has expired" });
+    }
     const courses = await Courses.findById(req.params.courseid);
     if (!courses) {
       return res.status(404).json({ message: "Course not found" });
