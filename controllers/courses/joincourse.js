@@ -10,7 +10,9 @@ module.exports = async (req, res) => {
     if (typeof user === "string") {
       return res.status(404).json({ message: user });
     }
-    const plan = await PlanUser.findOne({ user_id: user.id });
+    const plan = await PlanUser.findOne({ user_id: user.id }).populate(
+      "subplan_id"
+    );
     if (!plan) {
       return res.status(404).json({ message: "User not subscribed yet" });
     }
@@ -49,6 +51,6 @@ module.exports = async (req, res) => {
     const savedCourse = await newCourse.save();
     return res.status(200).json(savedCourse);
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
